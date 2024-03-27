@@ -1,0 +1,47 @@
+*{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+body{
+    background-color: white; 
+}
+h1{
+    color : black;
+
+    font-size: 50px;
+    margin-top : 50px; 
+    margin-bottom : 15px; 
+}
+
+button{
+    padding-bottom : 15px; 
+    text-align: center;
+    border-radius: 15px;
+    height : 30px; 
+    width : 100px; 
+    font-size: 20px;
+    background-color: cornsilk;
+    /* background-color: #a59c76; */
+    
+}
+
+hr{margin-bottom: 30px;}
+
+#diffSection 
+{margin-bottom: 20px;}
+
+table{
+    border-collapse: collapse;
+    border-style: solid;
+    border-color: gray;
+    border-width: 5px;
+}
+
+td {
+    height: 24px;
+    width: 24px;
+}
+
+img{
+    display : block ; 
+}
