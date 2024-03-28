@@ -1,5 +1,13 @@
 /*
 Setting up global variables 
+
+NOTE TO SELF: 
+!!!!!!!!!!!!!!!!!!!
+CHANGE ALL COORDINATE HANDLING FROM 
+string "row, col" 
+TO 
+array [row, col]
+array of integers^^^^
 */
 let gameTable = document.getElementById("game table"); 
 let tableBody; 
@@ -17,8 +25,9 @@ let buttonBackgroundColor = getComputedStyle(buttons[0]).getPropertyValue('backg
 let buttonSelectColor = 'rgb(165, 156, 118)'; 
 
 /*
-Function to generate an array of randomly generated coordinates of bombs on board 
-@param bombs: number of bomb coordinates to generate 
+Function to generate an array of randomly generated coordinates of bombs on board. 
+The array bombArray contains coordinates of bombs as the string "row, col" 
+@param bombs: number of bomb coordinates to generate
 */
 function createBombArray(bombs){
 
@@ -39,10 +48,9 @@ function createBombArray(bombs){
 }
 
 /*
-Function to create the HTML table. It gives all <td> elements and ID equal to 
-their coordinates on the board. 
-@param row: The amount of rows to create 
-@param col: The amount of columns to create 
+Function to create the HTML table. It sets <td> elements ID equal to 
+their coordinates on the board as the string "row, col". This function is called
+by the startGame function, and it uses the global variables row and col 
 */
 function createTable(){
 
@@ -56,7 +64,7 @@ function createTable(){
             
             //put default tile image 
             const image = document.createElement('img'); 
-            image.src = "/assets/default.png"; 
+            image.src = "./assets/default.png"; 
             image.width = 24;
             image.height = 24; 
             cell.appendChild(image); 
@@ -80,7 +88,8 @@ function createTable(){
 }
 
 /*
-Handler function to use the buttons like selection buttons
+Handler function to use the buttons like selection buttons. Each button's onclick is assigned to this
+function and passes themself in the parameter
 @param button: button element passed in, each button passes in themselves 
  */
 function buttonHandler(button){
@@ -106,6 +115,10 @@ function buttonHandler(button){
     }   
 }
 
+/*
+Function for starting the game, used in buttonHandler once difficulty is selected and 
+the start button is pushed
+*/
 function startGame(){
     if(tableBody){
         gameTable.removeChild(tableBody); 
@@ -140,3 +153,17 @@ function startGame(){
     }
     
 }
+
+/*
+function for flagging tiles. This function is assigned to the rightclick of 
+each <td> in the gameTable. 
+@param coords: The coordinates of the tile calling the function as the string "row, col"
+*/
+function flag(coords){}
+
+/*
+Function for revealing tiles. This function is assigned to the leftclick of each 
+<td> element in the gameTable.
+@param coords: The coordinates of the tile calling the function as the string "row, col"
+*/
+function reveal(coords){}

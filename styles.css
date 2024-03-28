@@ -25,7 +25,7 @@ button{
     
 }
 
-hr{margin-bottom: 30px;}
+hr{margin-bottom: 0px;}
 
 #diffSection 
 {margin-bottom: 20px;}
@@ -35,6 +35,7 @@ table{
     border-style: solid;
     border-color: gray;
     border-width: 5px;
+    margin-top : 40px; 
 }
 
 td {
