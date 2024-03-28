@@ -7,10 +7,6 @@
 
     <header>
         <h1 align = "Center"> Minesweeper </h1>
-
-    </header>
-
-    <body> 
         <div id = "diffSection" align = 'Center'>
             <button id = 'easy'>Easy</button>
             <button id = 'medium'>Medium</button> 
@@ -19,6 +15,48 @@
             <button id = 'start' disabled>Start</button>
         </div>
         <hr>  
+    </header>
+
+    <body> 
+        <div id = "timerSection">
+            <div id = "bombCount">
+                <div id = "bombCountImgs">
+                    <div class = "numImgDiv">
+                        <img class = "numImg" src = "assets/digit0.png">
+                    </div>
+
+                    <div class = "numImgDiv">
+                        <img class = "numImg" src = "assets/digit0.png">
+                    </div>
+                    <div class = "numImgDiv">
+                        <img class = "numImg" src = "assets/digit0.png">
+                    </div>
+                </div>
+            </div>
+
+            <div id = "timer">
+                <div id = "timerImgs">
+                    <div class = "numImgDiv">
+                        <img class = "numImg" src = "assets/digit0.png">
+                    </div>
+
+                    <div class = "numImgDiv">
+                        <img class = "numImg" src = "assets/digit0.png">
+                    </div>
+                    <div class = "numImgDiv">
+                        <img class = "numImg" src = "assets/digit0.png">
+                    </div>
+                </div>
+                
+            </div>
+
+            <div id = "resetButtonSection">
+                <div id = "resetButtonImgContainer">
+                    <img id = resetButton src = "assets/resetButton.png" height = 35 width = 35>
+                </div>      
+            </div>
+        </div>
+
         <div id = "gameSection">
             <table id = "game table" align = "Center"></table>
         </div>

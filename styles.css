@@ -2,6 +2,9 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+/*
+Styling for the header 
+*/
 body{
     background-color: white; 
 }
@@ -25,24 +28,78 @@ button{
     
 }
 
-hr{margin-bottom: 0px;}
-
 #diffSection 
 {margin-bottom: 20px;}
+hr{margin-bottom: 50px;}
 
+
+/*
+styling for the gameTable
+*/
 table{
+    border-collapse: collapse;
+    
+}
+tbody{
     border-collapse: collapse;
     border-style: solid;
     border-color: gray;
     border-width: 5px;
-    margin-top : 40px; 
 }
+
 
 td {
     height: 24px;
-    width: 24px;
+    width: max-content; 
 }
 
 img{
     display : block ; 
+}
+
+/*
+Styling for timer section 
+*/
+#timerSection{
+    display : none; 
+    background-color: rgb(180, 175, 175);
+    margin :auto; 
+    width : 216px; 
+    border-style: solid;
+    border-color: gray;
+}
+
+#bombCount{
+    width :max-content;
+    float :left; 
+    margin : 10px;
+}
+
+#timer{
+    width : max-content; 
+    float : right; 
+    margin : 10px; 
+}
+
+#resetButtonSection{
+    width : max-content; 
+    margin : auto; 
+}
+
+#resetButtonImgContainer{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#bombCountImgs #timerImgs{
+    margin :auto; 
+}
+
+.numImgDiv{
+    float :left; 
+}
+
+.numImg{
+    height : 35px; 
+    width : 20px; 
 }
