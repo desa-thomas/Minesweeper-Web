@@ -2,22 +2,32 @@
 Setting up global variables 
 
 TO DO: 
-finish making tile clicks smooth
+Make first click safe 
+Make timer and bomb count 
+set winning conditions 
+
 */
 let gameTable = document.getElementById("game table"); 
-let headTable = document.getElementById("head table"); 
 let tableBody; 
 let bombArray = []; 
 let row; 
 let col; 
+let ttlBombs; 
+let bombCount; 
 
-//game header elements 
+//timer section elements 
 let resetButton = document.getElementById("resetButton"); 
-let timerImgs = []; 
-let bombCountImgs = []; 
-resetButton.onmouseup = reset; 
-resetButton.onmousedown = function(){resetButton.src = "./assets/resetButtonClicked.png"}; 
+let timerImgs = document.getElementById("timerImgs").getElementsByTagName("img")
+let bombCountImgs = document.getElementById("bombCountImgs").getElementsByTagName("img");
 
+resetButton.onmouseup = reset; 
+resetButton.onmousedown = function(){resetButton.src = "./assets/resetButtonClicked.png";}; 
+resetButton.onmouseleave = function(){resetButton.src = "./assets/resetButton.png";}
+resetButton.draggable = false; 
+
+let hours; 
+let mins; 
+let secs;  
 
 //setup difficulty selection buttons
 let selectedButton; 
@@ -28,14 +38,9 @@ for(let i = 0; i < buttons.length; i++){
 let buttonBackgroundColor = getComputedStyle(buttons[0]).getPropertyValue('background-color'); 
 let buttonSelectColor = 'rgb(165, 156, 118)'; 
 
-//mouse listener reveal if left click, flag for anything else 
-let leftclick = 0; 
-let rightclick = 0;
-document.body.onmousedown = function (evt){
-    evt.button == 0 ? ++leftclick : ++rightclick}
-
-document.body.onmouseup = function (evt){
-    evt.button == 0 ? --leftclick : --rightclick}
+//click handler for mouse clicks on gameboard
+gameTable.onmousedown = function(evt){clickHandler(evt);}
+gameTable.onmouseup = function(evt){clickHandler(evt);}
 
 /*
 Function to generate an array of randomly generated coordinates of bombs on board. 
@@ -43,7 +48,7 @@ The array bombArray contains coordinates of bombs as the string "row, col"
 @param bombs: number of bomb coordinates to generate
 */
 function createBombArray(bombs){
-
+    ttlBombs = bombs; 
     let i = 0; 
     while(i < bombs){
         let rowCoord = Math.floor(Math.random()*(row)); 
@@ -53,7 +58,11 @@ function createBombArray(bombs){
         if(coords in bombArray)
             continue; 
 
-        bombArray.push(coords); 
+        bombArray.push(coords);
+        let bombTile = document.getElementById(coords); 
+        Object.defineProperty(bombTile, "isBomb", {value:true,writeable:false,});
+
+        //define a property called isBomb for all bomb tiles and set to true; 
         i++; 
     }
 
@@ -105,28 +114,12 @@ function createCell(cell,i , j){
     //make tile id its coordinates 
     let coords = i + ", " + j; 
     image.id = coords; 
-
-    //clicking animation
-    cell.onmouseenter = function(){
-        if(leftclick)
-            image.src = "../assets/defaultClicked.png"; }
-    
-    cell.onmousedown = function(){
-        if(rightclick ==0 )
-            image.src = "../assets/defaultClicked.png"; 
-    }
-    cell.onmouseleave = function(){
-        if(leftclick){
-            image.src = "./assets/default.png";}}
-
-    //left click reveal right click flag
-    cell.onmouseup = function(){reveal(image);}
-
-    cell.oncontextmenu = function(){flag(image);}
+    image.onmouseenter = function(evt){clickHandler(evt);}
+    image.onmouseleave = function(evt){clickHandler(evt);}
 }
 
 /*
-Handler function to use the buttons like selection buttons. Each button's onclick is assigned to this
+Difficulty selection button handler. Each button's onclick is assigned to this
 function and passes themself in the parameter
 @param button: button element passed in, each button passes in themselves 
  */
@@ -151,6 +144,64 @@ function buttonHandler(button){
     else{
         startGame(); 
     }   
+}
+
+/*
+Function for handling mouse clicks on the gameTable:
+evt.buttons == 1 when entering/leaving means user is holding left click 
+evt.buttons == 2 when entering/leaving means user is holding right click
+
+evt.button == 0 when mouse down means user left clicked that tile
+evt.button == 0 when mouse up means user released left click on that tile
+
+evt.button == 2 when mouse down means user right clicked that tile 
+evt.button == 2 when mouse up means user released right click on that tile
+
+@param evt: event object passed from mouseEvent 
+*/
+function clickHandler(evt){
+    const tile = evt.srcElement;
+    //user clicked on a tile, not on the edge of the table
+    if(tile.tagName == "IMG" && tile.class != "revealed"){
+
+        if(evt.type == "mousedown"){
+            //on left click 
+            if(evt.button == 0 && tile.class != "flagged"){
+                tile.src = "./assets/defaultClicked.png"; 
+            }
+            //on right click 
+            if(evt.button ==2){
+                if(tile.class != "flagged"){
+                    tile.src = "./assets/flagged.png"; 
+                    tile.class = "flagged"; 
+                }
+                else{
+                    tile.src = "./assets/default.png"; 
+                    tile.class = ""; 
+                }  
+            }
+        }
+        //When releasing, only reveal if it was a left click 
+        else if (evt.type == "mouseup"){
+            resetButton.src = "./assets/resetButton.png"
+            if(evt.button ==0 && tile.class != "flagged")
+                reveal(tile); 
+        }
+
+        else if(evt.type == "mouseenter"){
+            if(evt.buttons == 1)
+                tile.src = "./assets/defaultClicked.png";
+        }
+
+        else if(evt.type == "mouseleave"){
+            if(evt.buttons == 1)
+                tile.src = "./assets/default.png"; 
+        }
+
+        //if holding click changed reset button icon 
+        if(evt.buttons == 1)
+            resetButton.src = "./assets/holdingClick.png"; 
+    }
 }
 
 /*
@@ -198,33 +249,8 @@ function startGame(){
 }
 
 /*
-reset game, set to reset button 
 */
-function reset(){
-    resetButton.src = "./assets/resetButton.png"; 
-    console.log("reset"); 
-}
-
-/*
-function for flagging tiles. This function is assigned to the rightclick of 
-each <td> in the gameTable. 
-@param tile: tile image stored in cell 
-*/
-function flag(tile){
-    // console.log("enabled table");
-    // gameTable.style.pointerEvents = 'auto';  
-
-    if (tile.class == "flagged"){
-        tile.src = "./assets/default.png"; 
-        tile.class = undefined; 
-    }
-    
-    else{
-        tile.class = "flagged"; 
-        tile.src = "./assets/flagged.png"; 
-    }
-}
-
+function startTimer(){}
 /*
 Function for revealing tiles. This function is assigned to the leftclick of each 
 <td> element in the gameTable.
@@ -234,5 +260,83 @@ function reveal(tile){
     // console.log("disabled table"); 
     // gameTable.style.pointerEvents = 'none'; 
      console.log(tile.id); 
+
+     if(tile.isBomb){
+        tile.src = "./assets/bombClicked.png"; 
+        endGame(tile); 
+     }
+
+    else{
+        let adj = checkAdjacency(tile);
+        if(adj != 0){
+            tile.class = "revealed"; 
+            tile.src = "./assets/adj"+adj+".png"; 
+        }
+        else{
+            recursiveReveal(tile)
+        }
+    }
 }
 
+function recursiveReveal(tile){
+    let coordArr = tile.id.split(",",2); 
+    let tileRow = parseInt(coordArr[0]); 
+    let tileCol = parseInt(coordArr[1]); 
+    for(let i = -1; i <= 1; i++){
+        for(let j = -1; j <=1; j++){
+            let coords = (tileRow+i) + ", " + (tileCol+j); 
+            let adjTile = document.getElementById(coords);  
+
+            if (adjTile != null && adjTile.class != "revealed"){
+                let adj = checkAdjacency(tile); 
+                tile.class = "revealed"; 
+
+                if (adj == 0){
+                    tile.src = "./assets/defaultClicked.png"; 
+                    recursiveReveal(adjTile); 
+                }
+                else{
+                    tile.src = "./assets/adj"+adj+".png"; 
+                }
+            }
+        }
+    }
+
+}
+
+function checkAdjacency(tile){
+    let coordArr = tile.id.split(",",2); 
+    let tileRow = parseInt(coordArr[0]); 
+    let tileCol = parseInt(coordArr[1]); 
+    let adj = 0; 
+
+    for(let i = -1; i <= 1; i++){
+        for(let j = -1; j <=1; j++){
+            let coords = (tileRow+i) + ", " + (tileCol+j); 
+            let adjTile = document.getElementById(coords); 
+            
+            if(adjTile != null && adjTile.isBomb)
+                adj++; 
+        }
+    }
+
+    return adj; 
+}
+
+function endGame(bombClicked){
+    gameTable.style.pointerEvents = "none";
+    resetButton.src = "./assets/loseSmile.png"; 
+
+    for(let i = 0; i < bombArray.length; i++){
+        let bomb = document.getElementById(bombArray[i]); 
+        if(bomb != bombClicked)
+            bomb.src = "./assets/bomb.png"; 
+    }
+}
+/*
+reset game, set to reset button 
+*/
+function reset(){
+    resetButton.src = "./assets/resetButton.png"; 
+    startGame(); 
+}

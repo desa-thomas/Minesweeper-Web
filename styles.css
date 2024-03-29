@@ -12,7 +12,7 @@ h1{
     color : black;
 
     font-size: 50px;
-    margin-top : 50px; 
+    margin-top : 30px; 
     margin-bottom : 15px; 
 }
 
@@ -30,7 +30,7 @@ button{
 
 #diffSection 
 {margin-bottom: 20px;}
-hr{margin-bottom: 50px;}
+hr{margin-bottom: 20px;}
 
 
 /*
