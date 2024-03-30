@@ -12,7 +12,7 @@ h1{
     color : black;
 
     font-size: 50px;
-    margin-top : 30px; 
+    margin-top : 3%; 
     margin-bottom : 15px; 
 }
 
@@ -36,6 +36,9 @@ hr{margin-bottom: 20px;}
 /*
 styling for the gameTable
 */
+#gameSection{
+    margin-bottom: 20px;
+}
 table{
     border-collapse: collapse;
     
@@ -102,4 +105,13 @@ Styling for timer section
 .numImg{
     height : 35px; 
     width : 20px; 
+}
+
+#how-to-play{
+    border-style: solid;
+    margin:auto;
+    width : 500px
+}
+li{
+    margin-bottom: 10px;
 }
