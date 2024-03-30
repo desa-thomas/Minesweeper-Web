@@ -107,11 +107,13 @@ Styling for timer section
     width : 20px; 
 }
 
-#how-to-play{
+#objective{
     border-style: solid;
     margin:auto;
-    width : 500px
+    width : 500px; 
+    background-color: cornsilk;
 }
+
 li{
     margin-bottom: 10px;
 }

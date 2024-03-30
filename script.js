@@ -40,10 +40,7 @@ let buttonSelectColor = 'rgb(165, 156, 118)';
 gameTable.onmousedown = function(evt){clickHandler(evt);}
 gameTable.onmouseup = function(evt){clickHandler(evt);}
 //prevent context menu from popping up when flagging 
-gameTable.oncontextmenu = function(evt){evt.preventDefault();}
-
-buttons[1].click(); 
-buttons[buttons.length-1].click(); 
+gameTable.oncontextmenu = function(evt){evt.preventDefault();} 
 
 /*
 Function to generate an array of randomly generated coordinates of bombs on board. 
@@ -350,7 +347,6 @@ function checkAdjacency(tile){
     return adj; 
 }
 
-function firstClickSafe(bomb){}
 /*
 Function called when player loses game 
 @param bombClicked: tile of bomb user clicked
