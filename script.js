@@ -1,11 +1,5 @@
 /*
 Setting up global variables 
-
-TO DO: 
-Make first click safe 
-Make timer and bomb count 
-set winning conditions 
-
 */
 let gameTable = document.getElementById("game table"); 
 let tableBody; 
