@@ -45,6 +45,8 @@ let buttonSelectColor = 'rgb(165, 156, 118)';
 //click handler for mouse clicks on gameboard
 gameTable.onmousedown = function(evt){clickHandler(evt);}
 gameTable.onmouseup = function(evt){clickHandler(evt);}
+//prevent context menu from popping up when flagging 
+gameTable.oncontextmenu = function(evt){evt.preventDefault();}
 
 buttons[1].click(); 
 buttons[buttons.length-1].click(); 
