@@ -3,7 +3,7 @@ Classic Minesweeper game made with HMTL and Javascript
 
 <br>
 <div align = "center">
-  <img src = "./Screenshots/lose.png" height = 500>
+  <img src = "./Screenshots/lose.png" height = 400>
 </div>
 
 ## Getting Started
@@ -21,5 +21,5 @@ Classic Minesweeper game made with HMTL and Javascript
 
 <br>
 <div align = "center">
-  <img src = "./Screenshots/rules.png" height = 500>
+  <img src = "./Screenshots/rules.png" height = 400>
 </div>
