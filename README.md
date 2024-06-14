@@ -1,5 +1,5 @@
 # [Minesweeper-Web](https://desa-thomas.github.io/Minesweeper-Web/)
-Classic Minesweeper game made with HMTL and Javascript. Click the link to go the Github Pages!
+Classic Minesweeper game made with HMTL and Javascript. Click the [link](https://desa-thomas.github.io/Minesweeper-Web/) to go the Github Pages!
 
 <br>
 <div align = "center">
