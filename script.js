@@ -14,7 +14,7 @@ let timerImgs = document.getElementById("timerImgs").getElementsByTagName("img")
 let bombCountImgs = document.getElementById("bombCountImgs").getElementsByTagName("img");
 
 resetButton.onmouseup = reset; 
-resetButton.onmousedown = function(){resetButton.src = "./assets/resetButtonClicked.png";}; 
+resetButton.onmousedown = function(){resetButton.src = "./assets/ResetButtonClicked.png";}; 
 resetButton.onmouseleave = function(){resetButton.src = "./assets/resetButton.png";}
 resetButton.draggable = false; 
 
