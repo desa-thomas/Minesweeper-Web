@@ -13,9 +13,22 @@ let resetButton = document.getElementById("resetButton");
 let timerImgs = document.getElementById("timerImgs").getElementsByTagName("img")
 let bombCountImgs = document.getElementById("bombCountImgs").getElementsByTagName("img");
 
+//Reset button/ smilely logic
+let resetButtonHeld;
+let prevResetButton;
 resetButton.onmouseup = reset; 
-resetButton.onmousedown = function(){resetButton.src = "./assets/resetButtonClicked.png";}; 
-resetButton.onmouseleave = function(){resetButton.src = "./assets/resetButton.png";}
+resetButton.onmousedown = function(){
+    prevResetButton = resetButton.src
+    resetButton.src = "./assets/resetButtonClicked.png"; 
+    resetButtonHeld=1;}; 
+//fixed bug, if you hover over reset button on win/lose smile it won't reset it
+resetButton.onmouseleave = function(){
+    console.log(resetButtonHeld)
+    if (resetButtonHeld){
+        resetButton.src = prevResetButton;}
+    
+    resetButtonHeld=0}
+
 resetButton.draggable = false; 
 
 let interval; 
@@ -124,7 +137,6 @@ function and passes themself in the parameter
 @param button: button element passed in, each button passes in themselves 
  */
 function buttonHandler(button){
-    
     if(button != selectedButton && button.id != 'start'){
         button.style['background-color'] = buttonSelectColor; 
 
@@ -215,6 +227,10 @@ function startGame(){
     flagCount = 0; 
     ttlRevealed = 0; 
     secs = 1;  
+    reset_message()
+    resetButton.src = "./assets/resetButton.png"
+
+
     for(let i = 0; i < timerImgs.length; i++){
         timerImgs[i].src = "./assets/digit0.png"; 
     }
@@ -362,11 +378,12 @@ function loseGame(bombClicked){
         if(bomb != bombClicked &&bomb.class != "flagged")
             bomb.src = "./assets/bomb.png"; 
     }
+    set_message("You Lost!", "red")
 }
 
 function winGame(){
-    clearInterval(interval); 
     resetButton.src = "./assets/winSmile.png";
+    clearInterval(interval); 
     gameTable.style.pointerEvents = "none";
 
     for(let i = 0; i < bombArray.length; i++){
@@ -374,6 +391,7 @@ function winGame(){
         bomb.src = "./assets/flagged.png"; 
     } 
     
+    set_message("You Win!", "green")
 }
 
 /*
@@ -446,5 +464,20 @@ reset game, set to reset button
 function reset(){
     clearInterval(interval); 
     resetButton.src = "./assets/resetButton.png"; 
+    prevResetButton = "./assets/resetButton.png"; 
     startGame(); 
+}
+
+/*
+set and reset win/lose message
+*/
+function set_message(text, color = 'black'){
+    message = document.getElementById('message')
+    message.innerHTML = text
+    message.style.color = color
+}
+
+function reset_message(){
+    message = document.getElementById('message')
+    message.innerHTML = ""
 }
