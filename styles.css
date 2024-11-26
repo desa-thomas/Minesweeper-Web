@@ -9,11 +9,18 @@ body{
     background-color: white; 
 }
 h1{
-    color : black;
-
     font-size: 50px;
     margin-top : 3%; 
     margin-bottom : 15px; 
+    text-align: center;
+}
+
+.winMessage{
+    margin-top: 0;
+    padding-top: 0;
+    font-size: 70px;
+    color: green; 
+    
 }
 
 button{
@@ -30,6 +37,7 @@ button{
 
 #diffSection 
 {margin-bottom: 20px;}
+
 hr{margin-bottom: 20px;}
 
 
