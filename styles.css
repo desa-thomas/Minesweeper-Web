@@ -45,8 +45,7 @@ hr{margin-bottom: 20px;}
 styling for the gameTable
 */
 #gameSection{
-    margin-bottom: 20px;
-}
+    margin:0}
 table{
     border-collapse: collapse;
     
@@ -75,6 +74,7 @@ Styling for timer section
     display : none; 
     background-color: rgb(180, 175, 175);
     margin :auto; 
+    margin-top: 20px;
     width : 216px; 
     border-style: solid;
     border-color: gray;
@@ -124,4 +124,13 @@ Styling for timer section
 
 li{
     margin-bottom: 10px;
+}
+
+.win-lose{
+    margin: 0px;
+    margin-top: 20px
+}
+
+hr{
+    margin:0;
 }
